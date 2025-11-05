@@ -37,7 +37,7 @@ app.use('/api/feedback', feedbackRoutes);
 
 // ✅ Connect to MongoDB
 const PORT = process.env.PORT || 5001;
-const MONGO = process.env.MONGO_URI || 'mongodb+srv://smaryanarang01_db_user:samy2006@cluster0.rbl8hqw.mongodb.net/?appName=Cluster0';
+const MONGO = process.env.MONGO_URI || 'mongodb+srv://smaryanarang01_db_user:derabassi74@cluster0.rbl8hqw.mongodb.net/eLearningDB?retryWrites=true&w=majority';
 
 mongoose.connect(MONGO, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
