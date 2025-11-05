@@ -1,9 +1,23 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const allowed = process.env.CORS_ORIGIN || "*"; // set to Netlify URL later
-app.use(cors({ origin: allowed, credentials: true }));
 require('dotenv').config();
+
+// ✅ Initialize app before using it
+const app = express();
+
+// ✅ Middleware
+app.use(express.json());
+
+// ✅ CORS setup
+const allowed = process.env.CORS_ORIGIN || "*"; // set this to your Netlify URL in production
+const corsOptions = {
+  origin: allowed === "*" ? "*" : allowed.split(",").map(url => url.trim()),
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
+// ✅ Import routes
 const authRoutes = require('./routes/authRoutes');
 const courseRoutes = require('./routes/courseRoutes');
 const quizRoutes = require('./routes/quizRoutes');
@@ -12,10 +26,7 @@ const materialRoutes = require('./routes/materialRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const feedbackRoutes = require('./routes/feedbackRoutes');
 
-const app = express();
-app.use(express.json());
-app.use(cors());
-
+// ✅ Use routes
 app.use('/api/auth', authRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/quizzes', quizRoutes);
@@ -24,12 +35,13 @@ app.use('/api/materials', materialRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/feedback', feedbackRoutes);
 
+// ✅ Connect to MongoDB
 const PORT = process.env.PORT || 5001;
 const MONGO = process.env.MONGO_URI || 'mongodb://localhost:27017/e_learning_platform';
 
 mongoose.connect(MONGO, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    console.log('MongoDB connected');
-    app.listen(PORT, () => console.log('Server running on port ' + PORT));
+    console.log('✅ MongoDB connected');
+    app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
   })
-  .catch(err => console.error(err));
+  .catch(err => console.error('❌ MongoDB connection error:', err.message));
