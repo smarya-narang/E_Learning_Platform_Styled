@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const allowed = process.env.CORS_ORIGIN || "*"; // set to Netlify URL later
+app.use(cors({ origin: allowed, credentials: true }));
 require('dotenv').config();
 const authRoutes = require('./routes/authRoutes');
 const courseRoutes = require('./routes/courseRoutes');
