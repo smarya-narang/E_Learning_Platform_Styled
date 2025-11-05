@@ -12,7 +12,7 @@ app.use(express.json());
 
 
 // ✅ CORS setup
-const allowed = process.env.CORS_ORIGIN || "*"; // set this to your Netlify URL in production
+const allowed = process.env.CORS_ORIGIN ||' https://classy-crostata-0ffe57.netlify.app/'; // set this to your Netlify URL in production
 const corsOptions = {
   origin: allowed === "*" ? "*" : allowed.split(",").map(url => url.trim()),
   credentials: true,
