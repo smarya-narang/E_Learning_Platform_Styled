@@ -18,6 +18,8 @@ const corsOptions = {
   credentials: true,
 };
 app.use(cors(corsOptions));
+app.get('/health', (req, res) => res.json({ ok: true }));
+
 
 // ✅ Import routes
 const authRoutes = require('./routes/authRoutes');
