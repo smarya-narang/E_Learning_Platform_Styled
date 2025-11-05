@@ -9,6 +9,8 @@ const app = express();
 // ✅ Middleware
 app.use(express.json());
 
+
+
 // ✅ CORS setup
 const allowed = process.env.CORS_ORIGIN || "*"; // set this to your Netlify URL in production
 const corsOptions = {
